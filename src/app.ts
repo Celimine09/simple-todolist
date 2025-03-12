@@ -7,16 +7,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app: Express = express()
-
-const PORT: string | number = process.env.PORT || 4000
+const PORT: string | number = process.env.PORT || 4001
 
 app.use(cors())
+app.use(express.json()) // Add this line to parse JSON request bodies
 app.use(todoRoutes)
 
 const uri: string = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.53v3a.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority&appName=Cluster0`
-mongoose.connect(uri)
-
-
 
 mongoose
   .connect(uri, { dbName: process.env.MONGO_DB })
